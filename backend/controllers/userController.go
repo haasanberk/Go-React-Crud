@@ -3,6 +3,10 @@ package controllers
 import (
 	"fmt"
 	"net/http"
+
+	"../database"
+	"../models"
+	"github.com/gofiber/fiber"
 )
 
 func Hello(w http.ResponseWriter, r *http.Request) {
@@ -10,10 +14,27 @@ func Hello(w http.ResponseWriter, r *http.Request) {
 }
 
 
-func AllUsers(w http.ResponseWriter, r *http.Request){
-	fmt.Fprintf(w, "All users endpoint")
+func CreateUser(c *fiber.Ctx) error{
+	var data map[string]string
+
+	if err := c.BodyParser(&data); err != nil {
+		return err
+	}
+
+	
+	user := models.User{
+		Name: data["Name"],
+		Email: data["Email"],
+	}
+
+	database.DB.Create(&user)
+	
+	return c.JSON(user)
+
 
 }
+
+
 func NewUser(w http.ResponseWriter, r *http.Request){
 	fmt.Fprintf(w, "new user endpoint")
 
