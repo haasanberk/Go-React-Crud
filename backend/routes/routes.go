@@ -7,5 +7,11 @@ import (
 
 func Setup(app *fiber.App){
 	
-	app.Post("api/register", controllers.CreateUser)
+	app.Post("api/create", controllers.CreateUser)
+	app.Get("api/getAll", controllers.GetAll)
+	app.Get("api/:id", controllers.GetUserByID)
+	app.Delete("api/:id", controllers.DeleteUser)
+	app.Put("api/update/:id", controllers.UpdateUser)
+
+
 }
