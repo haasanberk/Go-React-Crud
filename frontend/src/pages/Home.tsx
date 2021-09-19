@@ -30,6 +30,12 @@ const Home: React.FC = () => {
   function newUser() {
     history.push('/create');
   }
+  function editUser(id: number) {
+    history.push(`/update/${id}`);
+  }
+  function deleteUser(id: number) {
+    history.push(`/delete/${id}`);
+  }
 
   return (
     <div className='"container"'>
@@ -56,10 +62,18 @@ const Home: React.FC = () => {
               <td>{user.Name}</td>
               <td>{user.Email}</td>
               <td>
-                <Button size="sm" color="primary">
+                <Button
+                  size="sm"
+                  color="primary"
+                  onClick={() => editUser(user.ID)}
+                >
                   Edit
                 </Button>{' '}
-                <Button size="sm" variant="danger">
+                <Button
+                  size="sm"
+                  variant="danger"
+                  onClick={() => deleteUser(user.ID)}
+                >
                   Delete
                 </Button>
               </td>
