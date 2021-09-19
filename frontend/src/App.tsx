@@ -1,21 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import List from './pages/List';
 import Nav from './components/nav';
-import { BrowserRouter, Route } from 'react-router-dom';
-import Home from './pages/Home';
+import { BrowserRouter } from 'react-router-dom';
+import Routes from './routes';
 
 function App() {
   return (
-    <div className="App">
-      <Nav></Nav>
-      <BrowserRouter>
-        <Route path="/" exact component={Home} />
+    <BrowserRouter>
+      <Nav />
 
-        <Route path="/list" component={List} />
-      </BrowserRouter>
-    </div>
+      <Routes />
+    </BrowserRouter>
   );
 }
 
