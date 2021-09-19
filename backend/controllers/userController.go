@@ -7,11 +7,9 @@ import (
 )
 
 func GetAll(c *fiber.Ctx) error {
-
 	var users []models.User
 	database.DB.Find(&users)
 	return c.Status(fiber.StatusOK).JSON(users)
-	
 }
 
 
