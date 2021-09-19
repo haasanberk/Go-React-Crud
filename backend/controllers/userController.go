@@ -27,7 +27,7 @@ func CreateUser(c *fiber.Ctx) error{
 	}
 
 	database.DB.Create(&user)
-	return c.Status(fiber.StatusOK).JSON(user)
+	return c.Status(fiber.StatusCreated).JSON(user)
 }
 
 
@@ -38,7 +38,7 @@ func GetUserByID(c *fiber.Ctx) error {
 	database.DB.First(&user, id)
 
 	if user.Name == ""{
-		return c.JSON("No User Found with ID")
+		return c.Status(fiber.StatusNotFound).JSON("No User Found with ID")
 		
 	}
 	return c.Status(fiber.StatusOK).JSON(user)
@@ -51,7 +51,7 @@ func DeleteUser(c *fiber.Ctx) error{
 	database.DB.First(&user, id)
 	
 	if user.Name == "" {
-		return c.JSON("No User Found with ID")
+		return c.Status(fiber.StatusNotFound).JSON("No User Found with ID")
 	}
 
 	database.DB.Delete(&user)
@@ -65,7 +65,7 @@ func UpdateUser(c *fiber.Ctx) error{
 	database.DB.First(&user, id)
 
 	if user.Name == "" {
-		return c.JSON("No User Found with ID")
+		return c.Status(fiber.StatusNotFound).JSON("No User Found with ID")
 	}
 	if err := c.BodyParser(&user); err != nil {
 		return c.Status(500).SendString(err.Error())
